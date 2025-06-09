@@ -175,17 +175,18 @@ searchWithMCP();`;
               <span>Node.js</span>
             </Button>
             <Button
-              variant="ghost"
+              variant={apiDialogTab === "mcp" ? "default" : "ghost"}
               size="sm"
-              disabled={true}
+              onClick={() => setApiDialogTab("mcp")}
               className={cn(
-                "rounded-sm text-sm flex items-center gap-2 opacity-60 cursor-not-allowed",
-                "hover:bg-slate-200/60 dark:hover:bg-muted/60 hover:text-foreground"
+                "rounded-sm text-sm flex items-center gap-2",
+                apiDialogTab === "mcp"
+                  ? "shadow-sm bg-slate-200 dark:bg-muted hover:bg-slate-200 dark:hover:bg-muted hover:text-foreground text-foreground"
+                  : "hover:bg-slate-200/60 dark:hover:bg-muted/60 hover:text-foreground"
               )}
             >
               <McpIcon className="h-4 w-4" />
               <span>MCP</span>
-              <Badge className="bg-blue-500 text-xs h-5 ml-1">Coming Soon</Badge>
             </Button>
           </div>
 
@@ -224,6 +225,19 @@ searchWithMCP();`;
                 badgeText="SDK"
                 badgeColor="bg-blue-600 hover:bg-blue-600"
                 title="AirweaveSDKClient"
+                footerContent={docLinkFooter}
+              />
+            </div>
+          )}
+
+          {apiDialogTab === "mcp" && (
+            <div className="space-y-2">
+              <CodeBlock
+                code={getApiEndpoints().mcpSnippet}
+                language="javascript"
+                badgeText="SDK"
+                badgeColor="bg-blue-600 hover:bg-blue-600"
+                title="MCPClient"
                 footerContent={docLinkFooter}
               />
             </div>
