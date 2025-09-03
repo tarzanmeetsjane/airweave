@@ -40,5 +40,8 @@
     },
     "files.watcherExclude": {
         "**/fern/**": true
+    },
+    "python.analysis.diagnosticSeverityOverrides": {
+        
     }
 }

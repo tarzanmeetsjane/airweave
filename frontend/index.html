@@ -29,3 +29,57 @@
 </body>
 
 </html>
+import { createServer } from "http";
+import { setupApp } from "./routes";
+import { log, setupVite } from "./vite";
+import express from "express";
+
+const app = express();
+
+async function startServer() {
+  const server = await setupApp(app);
+  
+  // Force development mode for proper frontend serving
+  const isDevelopment = true; // process.env.NODE_ENV !== "production";
+
+  if (!isDevelopment) {
+    const PORT = parseInt(process.env.PORT || "5000");
+    
+    server.listen(PORT, "0.0.0.0", () => {
+      log(`🚀 Production server running at http://0.0.0.0:${PORT}`, "express");
+      log(`📊 Health check available at http://0.0.0.0:${PORT}/api/health`, "express");
+      log(`🌍 Environment: ${process.env.NODE_ENV}`, "express");
+      log(`💳 PayPal victim cashout system ready for 248-victim recovery`, "express");
+    });
+  } else {
+    await setupVite(app, server);
+    
+    const PORT = parseInt(process.env.PORT || "5000");
+    
+    server.listen(PORT, "0.0.0.0", () => {
+      log(`🚀 Development server with Vite HMR running at http://0.0.0.0:${PORT}`, "express");
+      log(`📊 Health check available at http://0.0.0.0:${PORT}/api/health`, "express");
+      log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`, "express");
+      log(`💳 PayPal victim cashout system ready for 248-victim recovery`, "express");
+    });
+  }
+}
+
+// Start the server
+startServer().catch(console.error);
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%237e57c2' d='M3 16.5v-9A4.5 4.5 0 017.5 3h9A4.5 4.5 0 0121 7.5v9a4.5 4.5 0 01-4.5 4.5h-9A4.5 4.5 0 013 16.5zm8.5-7.25a.75.75 0 00-1.5 0v5.5a.75.75 0 001.5 0v-5.5zM14 9.25a.75.75 0 00-1.5 0v5.5a.75.75 0 001.5 0v-5.5z'/%3E%3C/svg%3E" />
+    <title>888Hz Harmonizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
